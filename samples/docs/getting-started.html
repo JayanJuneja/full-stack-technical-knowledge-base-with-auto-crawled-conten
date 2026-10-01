@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head><title>Getting started - Acme Queue Docs</title></head>
+<body>
+  <nav><a href="index.html">Home</a> | <a href="configuration.html">Configuration</a></nav>
+  <main>
+    <h1>Getting started</h1>
+    <p>Install the client with <code>npm install acme-queue</code>, then create a producer:</p>
+    <pre>const q = new AcmeQueue({ url: 'amqp://localhost' });
+await q.publish('orders', { id: 42 });</pre>
+    <p>Consumers acknowledge messages explicitly; unacknowledged messages are redelivered after the visibility timeout.</p>
+  </main>
+</body>
+</html>

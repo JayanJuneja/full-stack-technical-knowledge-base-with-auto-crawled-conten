@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: crawlwiki
+      POSTGRES_PASSWORD: crawlwiki   # local development only
+      POSTGRES_DB: crawlwiki
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crawlwiki"]
+      interval: 5s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://crawlwiki:crawlwiki@db:5432/crawlwiki
+      PORT: 3000
+      CRAWL_EVERY_SECONDS: 60
+      CRAWL_DELAY_MS: 500
+      ALLOW_REGISTRATION: "true"
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

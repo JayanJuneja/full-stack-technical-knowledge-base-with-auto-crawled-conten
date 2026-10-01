@@ -1,0 +1,11 @@
+node_modules/
+web/dist/
+data/
+*.db
+*.db-wal
+*.db-shm
+coverage/
+.env
+.env.*
+.DS_Store
+npm-debug.log*
